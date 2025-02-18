@@ -9,7 +9,7 @@ export default function Demo() {
         header
       </div>
       <div>
-        
+        Body
         <FaBars />
       </div>
       <div>
