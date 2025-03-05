@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function login() {
+export default function goals() {
   return (
     <div>
-      hello login
+      hello goals
     </div>
   )
 }
