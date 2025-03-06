@@ -82,7 +82,7 @@ button:hover {
 }
 .search-icon {
     position: absolute;
-    left: 230px;
+    left: 40%;
     font-size: 18px;
     color: #353030;
    
@@ -90,4 +90,8 @@ button:hover {
 button:active {
     background-color: #276415; /* Change to a different shade on click */
     transform: scale(1.1);
+}
+.bell{
+    margin-left: 40px;
+    font-size: 20px;
 }
