@@ -10,6 +10,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosSettings } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
+import { CiBellOn } from "react-icons/ci";
 
 export default function Layout() {
   const navigate = useNavigate(); // For navigation
@@ -20,7 +21,7 @@ export default function Layout() {
       <div className="sidebar">
         <img src={logo} alt="Logo" className="logo" />
         <div className="pos">
-          <button onClick={() => navigate("/layout")}>
+          <button onClick={() => navigate("/home")}>
             <MdDashboard className="icon" /> Dashboard
           </button>
           <button onClick={() => navigate("/spendinghabits")}>
@@ -45,8 +46,10 @@ export default function Layout() {
       <div className="main-content">
         {/* Navbar */}
         <div className="navbar">
+        <h2>Dashboard</h2>
           <CiSearch className="search-icon" />
           <input type="text" placeholder="Search..." className="search-bar" />
+          <CiBellOn className='bell' />
         </div>
         
         {/* Dynamic Content Goes Here */}
