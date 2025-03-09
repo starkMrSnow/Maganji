@@ -55,6 +55,7 @@ export default function Layout() {
         
         {/* Dynamic Content Goes Here */}
         <div className="page-content">
+          write code here
           <Outlet />
         </div>
       </div>
