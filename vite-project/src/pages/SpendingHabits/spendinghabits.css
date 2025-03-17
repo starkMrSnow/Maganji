@@ -1,0 +1,83 @@
+.spending-page-content{
+    margin-top: 20vh;
+    height: 100%;
+    color: black;
+    margin-left: 50vh;
+}
+.spending-chart-container {
+    width: 40%; /* Adjust width to fit content */
+    max-width: 400px; /* Prevent it from being too large */
+    height: 300px; /* Maintain height */
+    display: flex;
+    justify-content: flex-start; /* Align to the left */
+    align-items: center; /* Center vertically */
+    padding: 20px;
+    flex-direction: row;
+    position: static;
+    
+  }
+  .recharts-sector:focus {
+    outline: none !important;
+  }
+  .month{
+    left: 30vh;
+    color: #C24893;
+  }
+  .position{
+    margin-right: -90vw;
+   margin-top: -50vh;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-btn {
+    background-color: #5AAE1F;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+    outline: none; /* Prevents outline on click */
+  }
+  
+  .dropdown-btn:hover {
+    background-color: #3f7549;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 150px;
+    max-height: 120px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  
+  .dropdown-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    /* transition: background 0.3s; */
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
+  .dropdown-btn:focus {
+    outline: none;
+  }
+  
+  .dropdown-btn:active {
+    transform: none; /* Prevents any scaling effect */
+    background-color: #15c908; /* Keeps the hover color consistent */
+  }
