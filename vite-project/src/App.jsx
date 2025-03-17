@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home/home.jsx';
@@ -10,14 +9,15 @@ import Profile from './pages/Profile/profile.jsx'
 import Settings from './pages/Settings/settings.jsx'
 // import Settings from './pages/Settings/settings.jsx'
 import Login from './pages/Login/login.jsx'
-import Signup from './pages/Signup/signup.jsx'
+import Signup from './pages/Signup/signup.jsx';
 
 export default function App() {
   return (
     <Router>
       <div>
       <Routes>
-      <Route path="/" element={<Home />} /> 
+        <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} /> 
           <Route path="/layout" element={<Layout />} /> 
           <Route path="/spendinghabits" element={<SpendingHabits />} /> 
