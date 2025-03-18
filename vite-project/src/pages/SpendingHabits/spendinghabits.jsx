@@ -12,6 +12,11 @@ import { CiSearch, CiBellOn } from "react-icons/ci";
 import './spendinghabits.css';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { MdDateRange } from "react-icons/md";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { IoFastFood } from "react-icons/io5";
+import { MdOutlineEmojiTransportation } from "react-icons/md";
+import { GiWineBottle } from "react-icons/gi";
+import { LuShoppingBag } from "react-icons/lu";
 
 // Pie Chart Data
 const data = [
@@ -112,7 +117,7 @@ export default function SpendingHabits() {
               <MdDateRange />
               <div className="dropdown">
                 <button className="dropdown-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                   Month
+                   Month <IoMdArrowDropdown />
                 </button>
                 {dropdownOpen && (
                   <div className="dropdown-menu" style={{ maxHeight: '120px', overflowY: 'auto', backgroundColor: 'white', border: '1px solid #ccc', borderRadius: '5px', padding: '5px' }}>
@@ -132,6 +137,30 @@ export default function SpendingHabits() {
               </div>
             </div>
           </div>
+                <div>
+                <h3 className='underlined-text'>EXPENSES</h3>
+                <div className='expense-bar'>  
+                <IoFastFood  className='food'/>           
+              <p className='bar-one'>Food</p>
+              <p className='amount-one'>Ksh.5,200</p>
+              </div>
+              <div className='expense-bar'> 
+              <MdOutlineEmojiTransportation className='food'/>            
+              <p className='bar-two'>Transport</p>
+              <p className='amount-two'>Ksh.4,200</p>
+              </div>
+              <div className='expense-bar'>     
+              <GiWineBottle className='food'/>        
+              <p className='bar-three'>Entertainment</p>
+              <p className='amount-three'>Ksh.3,200</p>
+              </div>
+              <div className='expense-bar'>   
+              <LuShoppingBag className='food' />          
+              <p className='bar-three'>Shopping</p>
+              <p className='amount-four'>Ksh.1,200</p>
+              </div>
+                </div>
+          
         </div>
       </div>
     </div>
