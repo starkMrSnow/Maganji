@@ -3,6 +3,7 @@
     height: 100%;
     color: black;
     margin-left: 50vh;
+  
 }
 .spending-chart-container {
     width: 40%; /* Adjust width to fit content */
@@ -33,8 +34,9 @@
   }
   
   .dropdown-btn {
+    height: 25px;
     background-color: #5AAE1F;
-    color: white;
+    color: black;
     padding: 8px 12px;
     border: none;
     border-radius: 5px;
@@ -80,4 +82,57 @@
   .dropdown-btn:active {
     transform: none; /* Prevents any scaling effect */
     background-color: #15c908; /* Keeps the hover color consistent */
+  }
+  .underlined-text {
+    text-decoration: underline;
+    color: #C24893;
+  }
+  .expense-bar {
+    margin-top: 30px;
+    width: 300px;  /* Adjust width */
+    height: 50px;  /* Adjust height */
+    background-color: white;
+    border-radius: 5px; /* Optional rounded corners */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* Right and bottom shadow */
+    display: flex;
+    flex-direction: row;
+  }
+ 
+  .bar-one{
+    margin-top: 12px;
+    margin-left: 4px;
+  }
+  .bar-two{
+    margin-top: 12px;
+    margin-left: 4px;
+  }
+  .bar-three{
+    margin-top: 12px;
+    margin-left: 4px;
+  }
+  .amount-one{
+    margin-top: 12px;
+    margin-left: 160px;
+  }
+  .amount-two{
+    margin-top: 12px;
+    margin-left: 130px;
+  }
+  .amount-three{
+    margin-top: 12px;
+    margin-left: 100px;
+  }
+  .amount-four{
+    margin-top: 12px;
+    margin-left: 130px;
+  }
+  .food{
+    color: #410750;
+   margin-top: 13px;
+   margin-left: 5px;
+  }
+  .transport{
+    color: #edde39;
+  margin-top: 13px;
+  margin-left: 5px;
   }
