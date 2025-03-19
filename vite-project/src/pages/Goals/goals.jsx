@@ -47,7 +47,7 @@ export default function Layout() {
       <div className="main-content">
         {/* Navbar */}
         <div className="navbar">
-          <h2>My Goals "</h2>
+          <h2>My Goals </h2>
           <CiSearch className="search-icon" />
           <input type="text" placeholder="Search..." className="search-bar" />
           <CiBellOn className='bell' />
@@ -55,6 +55,30 @@ export default function Layout() {
         
         {/* Dynamic Content Goes Here */}
         <div className="page-content">
+          <h2> GOALS </h2>
+          <div className ="goals-container">
+          <button className="goal-card emergency" >EMERGENCY</button>
+          <button className="goal-card business" >START A BUSINESS</button>
+          <button className="goal-card retirement" >RETIREMENT</button>
+          <button className="goal-card debt" >DEBT</button>
+          <button className="goal-card travel" >TRAVEL</button>
+          <button className="goal-card other" >OTHER</button>
+          </div>
+
+          <div className="reward-section">
+            <div className="rewards-card"> REWARDS 🏆</div>
+          </div>
+          
+
+          
+
+          
+        
+          
+
+          
+
+          
           <Outlet />
         </div>
       </div>

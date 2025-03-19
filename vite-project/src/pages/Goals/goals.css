@@ -1,3 +1,30 @@
 /* .search-icon{
     left: 25%;
 } */
+ .goals-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+ }
+ .goal-card{
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+ }
+ .reward-section{
+    margin-top: 20px;
+    text-align: center;
+ }
+ .rewards-card{
+    padding: 20px;
+    background: #f0ad4e;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #fff;
+
+
+ }
