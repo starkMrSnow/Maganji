@@ -57,16 +57,16 @@ export default function Layout() {
         <div className="page-content">
           <h2> GOALS </h2>
           <div className ="goals-container">
-          <button className="goal-card emergency" >EMERGENCY</button>
-          <button className="goal-card business" >START A BUSINESS</button>
-          <button className="goal-card retirement" >RETIREMENT</button>
-          <button className="goal-card debt" >DEBT</button>
-          <button className="goal-card travel" >TRAVEL</button>
+          <button className="goal-card emergency" >EMERGENCY <br /> ⚠</button>
+          <button className="goal-card business" >START A BUSINESS <br />📉 </button>
+          <button className="goal-card retirement" >RETIREMENT <br /> 👵</button>
+          <button className="goal-card debt" >DEBT <br /> 💰</button>
+          <button className="goal-card travel" >TRAVEL <br />✈</button>
           <button className="goal-card other" >OTHER</button>
           </div>
 
           <div className="reward-section">
-            <div className="rewards-card"> REWARDS 🏆</div>
+            <div className="rewards-card"> REWARDS <br /> 🏆</div>
           </div>
           
 

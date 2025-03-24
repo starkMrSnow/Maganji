@@ -1,10 +1,14 @@
 /* .search-icon{
     left: 25%;
 } */
+ 
+ 
  .goals-container{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
+    margin-top: 50px;
+    margin-left: 300px;
  }
  .goal-card{
     padding: 20px;
@@ -12,16 +16,48 @@
     text-align: center;
     font-weight: bold;
     font-size: 20px;
-    color: #fff;
+    color: #252525;
     cursor: pointer;
+    margin-left: 1px;
+ }
+ .goal-card.emergency {
+   background-color: #c90f0f;
+   justify-content: center;
+ }
+ .goal-card.business{
+   background-color: #92bce1;
+   justify-content: center;
+ }
+ .goal-card.retirement{
+   background-color: #c24893;
+   justify-content: center;
+ }
+
+ .goal-card.debt{
+   background-color: #32b557;
+   justify-content: center;
+ }
+ .goal-card.travel{
+   background-color: #d56b1a;
+   justify-content: center;
+ }
+ .goal-card.other{
+   background-color: #a79e9e;
+   justify-content: center;
  }
  .reward-section{
     margin-top: 20px;
     text-align: center;
+   border-radius: 50%;
+   padding: auto;
+   margin-left: 750px;
+   margin-right: 450px;
+   align-items: center;
+   justify-content: center;
  }
  .rewards-card{
     padding: 20px;
-    background: #f0ad4e;
+    background: #D5BB12;
     border-radius: 8px;
     font-weight: bold;
     color: #fff;
