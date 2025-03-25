@@ -7,6 +7,7 @@ import SpendingHabits from './pages/SpendingHabits/spendinghabits.jsx'
 import Goals from './pages/Goals/goals.jsx'
 import Profile from './pages/Profile/profile.jsx'
 import Settings from './pages/Settings/settings.jsx'
+import Budget from './pages/Budget/budget.jsx'
 // import Settings from './pages/Settings/settings.jsx'
 import Login from './pages/Login/login.jsx'
 import Signup from './pages/Signup/signup.jsx';
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} /> 
           <Route path="/transaction" element={<Transaction />} /> 
+          <Route path="/budget" element={<Budget />} /> 
         </Routes>
       </div>
        

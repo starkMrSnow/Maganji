@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom'; // Outlet is used to render dynamic content
 import '../Layout/layout.css';
 import './settings.css';
+import { BsPencilSquare } from "react-icons/bs";
 import logo from '../../assets/Logo.png';
 import { MdDashboard } from "react-icons/md";
 import { IoWallet } from "react-icons/io5";
@@ -22,11 +23,14 @@ export default function Layout() {
       <div className="sidebar">
         <img src={logo} alt="Logo" className="logo" />
         <div className="pos">
-          <button onClick={() => navigate("/home")}>
+        <button onClick={() => navigate("/home")}>
             <MdDashboard className="icon" /> Dashboard
           </button>
+          <button onClick={() => navigate("/budget")}>
+            < IoWallet className="icon" /> Budget
+          </button>
           <button onClick={() => navigate("/spendinghabits")}>
-            <IoWallet className="icon" /> Spending Habits
+            <BsPencilSquare className="icon" /> Spending Habits
           </button>
           <button onClick={() => navigate("/goals")}>
             <GiStairsGoal className="icon" /> Goals
@@ -37,9 +41,9 @@ export default function Layout() {
           <button onClick={() => navigate("/profile")}>
             <CgProfile className="icon" /> Profile
           </button>
-          <button onClick={() => navigate("/settings")}>
+          {/* <button onClick={() => navigate("/settings")}>
             <IoIosSettings className="icon" /> Settings
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -62,5 +66,3 @@ export default function Layout() {
     </div>
   );
 }
-
-

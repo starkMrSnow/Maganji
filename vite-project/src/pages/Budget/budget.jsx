@@ -1,7 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom'; // Outlet is used to render dynamic content
 import '../Layout/layout.css';
-import './goals.css';
 import { BsPencilSquare } from "react-icons/bs";
 import logo from '../../assets/Logo.png';
 import { MdDashboard } from "react-icons/md";
@@ -51,7 +50,7 @@ export default function Layout() {
       <div className="main-content">
         {/* Navbar */}
         <div className="navbar">
-          <h2>My Goals </h2>
+        <h2>Budgetting</h2>
           <CiSearch className="search-icon" />
           <input type="text" placeholder="Search..." className="search-bar" />
           <CiBellOn className='bell' />
@@ -59,35 +58,10 @@ export default function Layout() {
         
         {/* Dynamic Content Goes Here */}
         <div className="page-content">
-          <h2> GOALS </h2>
-          <div className ="goals-container">
-          <button className="goal-card emergency" >EMERGENCY <br /> ⚠</button>
-          <button className="goal-card business" >START A BUSINESS <br />📉 </button>
-          <button className="goal-card retirement" >RETIREMENT <br /> 👵</button>
-          <button className="goal-card debt" >DEBT <br /> 💰</button>
-          <button className="goal-card travel" >TRAVEL <br />✈</button>
-          <button className="goal-card other" >OTHER</button>
-          </div>
-
-          <div className="reward-section">
-            <div className="rewards-card"> REWARDS <br /> 🏆</div>
-          </div>
-          
-
-          
-
-          
-        
-          
-
-          
-
-          
-          <Outlet />
+          hello
         </div>
       </div>
     </div>
   );
 }
-
 
