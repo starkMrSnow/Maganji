@@ -19,6 +19,8 @@ import { IoCartSharp } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
 import { FaLightbulb } from "react-icons/fa";
 import { FaCarSide } from "react-icons/fa6";
+import { useState } from "react";
+import { baseUrl, getCookie } from "../../utils";
 
 const data = [
   {
@@ -67,6 +69,32 @@ const data = [
 export default function Layout() {
   const navigate = useNavigate(); // For navigation
 
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    amount : ""
+  })
+  
+  const inputChange = (event) => {
+    console.log(`Event: ${event.target.value}`);
+    
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  }
+  
+  const initiateDeposit = async (event) => {
+      event.preventDefault();
+      const response = await fetch(`${baseUrl}/initiate_payment`, {
+        method:'POST',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+          'X-CSRFToken': getCookie('csrftoken') 
+        },
+        body: JSON.stringify(formData)
+      })
+      console.log(formData);
+
+    }
+
   return (
     <div className="layout-container">
       {/* Sidebar */}
@@ -111,7 +139,36 @@ export default function Layout() {
                   <div className='wallet'>
                    <h4> Wallet Balance:</h4> 
                    <p>Ksh.12,798</p>
-                   <button className='deposit-button'>DEPOSIT</button>
+                   <button className='deposit-button' onClick={() => setShowForm(true)}>DEPOSIT</button>
+                   {showForm && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                      <form className="bg-white p-6 rounded-lg shadow-lg w-96" onSubmit={initiateDeposit} method="post">
+                        <label>Amount:</label>
+                          <input 
+                            type="text" 
+                            name="amount"
+                            onChange={inputChange}
+                            className="search-bar" 
+                            placeholder="Amount"
+                          />
+                        
+                        <div className="flex justify-end mt-4">
+                          <button 
+                            onClick={() => setShowForm(false)} 
+                            className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2"
+                          >
+                            Cancel
+                          </button>
+                          <button 
+                            type="submit" 
+                            className="bg-green-600 text-white px-4 py-2 rounded-md"
+                          >
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  )}
                    <div className='cards'>
                    <div className="budget-amount">
                    <p> Budget amount</p>
@@ -149,7 +206,7 @@ export default function Layout() {
         <ul>
            You spent more than 45% of 
              your salary last month on
-                parting
+                partying
         </ul>
        </li>
        <li>
@@ -180,7 +237,7 @@ export default function Layout() {
                 </div>
                 <div className='right'>
                 <div className='right-box'>
-                      <p>Upcomming Transactions</p>
+                      <p>Upcoming Transactions</p>
 
                       <div className='upcomming-transactions'>
                         <IoHome className='upcoming-icon'/>
