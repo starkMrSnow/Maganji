@@ -6,6 +6,7 @@ import { baseUrl, getCookie } from "../../utils"
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const[message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     firstName : "",
     lastName : "",
@@ -17,10 +18,14 @@ const SignUp = () => {
   })
 
   const inputChange = (event) => {
+    
     setFormData({ ...formData, [event.target.name]: event.target.value });
+    clientValidation(formData)
   }
   console.log(getCookie('csrftoken'))
+const clientValidation = ( data) =>{
 
+}
   const handleSignupSubmit = async (event) => {
     event.preventDefault();
     const response = await fetch(`${baseUrl}/signup`, {
@@ -32,8 +37,18 @@ const SignUp = () => {
       },
       body: JSON.stringify(formData)
     })
-    console.log(response.json())
-    navigate("/home");
+
+    const status= response.status;
+    const data = await response.json()
+
+    console.log(status)
+     if (status==200) {
+     navigate("/home");
+    }
+     else if(status==401){
+      setMessage(data.message)
+       console.log(data)
+    }
   }
 
   const handleLoginClick = () => {
@@ -58,6 +73,7 @@ const SignUp = () => {
           <input type="text" placeholder="National ID" required onChange={inputChange} name="nationalID"/>
           <input type="password" placeholder="Password" required onChange={inputChange} name="password"/>
           <input type="password" placeholder="Confirm password" required onChange={inputChange} name="confirmation"/>
+          <h6>{message}</h6>
           <button type="submit">Sign up</button>
         </form>
       </div>
