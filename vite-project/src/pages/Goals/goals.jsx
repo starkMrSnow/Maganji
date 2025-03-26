@@ -51,7 +51,7 @@ export default function Layout() {
       <div className="main-content">
         {/* Navbar */}
         <div className="navbar">
-          <h2>My Goals </h2>
+          <h2>Goals </h2>
           <CiSearch className="search-icon" />
           <input type="text" placeholder="Search..." className="search-bar" />
           <CiBellOn className='bell' />

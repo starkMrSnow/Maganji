@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom'; // Outlet is used to render dynamic content
 import '../Layout/layout.css';
+import './budget.css';
 import { BsPencilSquare } from "react-icons/bs";
 import logo from '../../assets/Logo.png';
 import { MdDashboard } from "react-icons/md";
@@ -50,15 +51,31 @@ export default function Layout() {
       <div className="main-content">
         {/* Navbar */}
         <div className="navbar">
-        <h2>Budgetting</h2>
+        <h2>My Budget</h2>
           <CiSearch className="search-icon" />
           <input type="text" placeholder="Search..." className="search-bar" />
           <CiBellOn className='bell' />
         </div>
         
         {/* Dynamic Content Goes Here */}
-        <div className="page-content">
-          hello
+        <div className="budget-page-content">
+            <div className='budget-rect-bar'>
+            <p className='budget-one'>Rent</p>
+            <p className='Firstamount'>- Ksh.1,200</p>
+            </div>
+            <div className='budget-rect-bar'>
+            <p className='budget-one'>Water</p>
+            <p className='Firstamount'>- Ksh.1,200</p>
+            </div>
+            <div className='budget-rect-bar'>
+            <p className='budget-one'>Wifi</p>
+            <p className='Firstamount'>- Ksh.1,200</p>
+            </div>
+            <div className='budget-rect-bar'>
+            <p className='budget-one'>Electiricty</p>
+            <p className='Firstamount'>- Ksh.1,200</p>
+            </div>
+            
         </div>
       </div>
     </div>
