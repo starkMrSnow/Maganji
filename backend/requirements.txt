@@ -1,0 +1,9 @@
+# Core Django framework
+Django>=4.2
+
+# API and request handling
+djangorestframework>=3.14  
+requests>=2.31  
+
+# CORS handling for API security
+django-cors-headers>=4.2
