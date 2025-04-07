@@ -138,6 +138,6 @@ import { IoMdArrowDropdown } from "react-icons/io";
         </div>
       </div>
     </div>
-    </div>
-  );
+</div>
+);
 }
