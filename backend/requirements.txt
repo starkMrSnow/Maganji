@@ -10,3 +10,8 @@ django-cors-headers>=4.2
 
 #Connecting MySQL to Django
 pymysql
+
+gunicorn
+whitenoise
+pillow
+
