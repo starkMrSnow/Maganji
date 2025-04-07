@@ -7,3 +7,6 @@ requests>=2.31
 
 # CORS handling for API security
 django-cors-headers>=4.2
+
+#Connecting MySQL to Django
+pymysql
