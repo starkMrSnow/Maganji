@@ -1,0 +1,127 @@
+.page-content{
+    margin-top:10vh;
+    height: 100%;
+    overflow-x: hidden;
+    
+  }
+  
+  .transaction-container{
+      padding: 2rem;
+      font-family: Arial, sans-serif;
+      color: #333;
+      justify-content: center;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .balance-section{
+      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+  
+    }
+    .balance {
+      font-size: 40px;
+      font-weight:bold;
+      color: green;
+    }
+   
+  
+    .transaction-history {
+      background-color: whitesmoke;
+      margin-left: 20vw;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    h3{
+      margin-top: 5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #15c908;
+    }
+    .transaction-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-left: 2rem;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .transaction-item:last-child {
+      border-bottom: none;
+    }
+    .transaction-name {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+    }
+    .transaction-amount {
+      color: green;
+      font-weight: 500;
+    }
+   
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-btn {
+      width: 60px;
+      height: 25px;
+      background-color: #5AAE1F;
+      color: black;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+      outline: none; /* Prevents outline on click */
+    }
+    .dropdown-btn:hover {
+      background-color: #3f7549;
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 150px;
+      max-height: 120px;
+      overflow-y: auto;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 5px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+    
+    .dropdown-item {
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      /* transition: background 0.3s; */
+    }
+    .dropdown-item:hover {
+      background-color: #f0f0f0;
+    }
+    .dropdown-btn:focus {
+      outline: none;
+    }
+    
+    .dropdown-btn:active {
+      transform: none; /* Prevents any scaling effect */
+      background-color: #15c908; /* Keeps the hover color consistent */
+    }
+    
+    .add-transaction {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 40px;
+      color: #007bff;
+      cursor: pointer;
+  }
