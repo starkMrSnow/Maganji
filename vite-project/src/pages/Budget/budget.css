@@ -5,9 +5,9 @@
 }
 .budget-rect-bar {
     margin-top: 30px;
-    width: 600px;  /* Adjust width */
-    height: 50px;  /* Adjust height */
-    background-color: #CBE9B9; /* White background */
+    width: 600px;
+    height: 50px;  
+    background-color: #CBE9B9; 
     border-radius: 5px; /* Optional rounded corners */
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* Right and bottom shadow */
     display: flex;
@@ -22,3 +22,59 @@
     margin-top: 12px;
     margin-left: 380px;
   }
+  .add{
+    margin-left: 30vw;
+    text-align: center;
+    width: 120px;
+  }
+  .body{
+    background-color:black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    color: white;
+    width: 40%;
+    margin-top: 3vw;
+    border: black 1px solid;
+    border-radius: 7%;
+    -webkit-border-radius: 7%;
+    -moz-border-radius: 7%;
+    -ms-border-radius: 7%;
+    -o-border-radius: 7%;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+}
+
+.form-container{
+    width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+label{
+    color:white;
+    font-size: 20px;
+    
+}
+
+input {
+  width: 300px; 
+  height: 40px;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white; 
+  border: none;
+  border-radius: 15px;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif; 
+  outline: none;
+  backdrop-filter: blur(5px); 
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
