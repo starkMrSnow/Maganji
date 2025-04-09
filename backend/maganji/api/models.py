@@ -23,12 +23,11 @@ class User(AbstractUser):
     #         self.username = self.generate_unique_username()
     #     super().save(*args, **kwargs)
 
-
-# class Budget(models.Model):
-#     user_id = models.ForeignKey(User, on_delete=models.CASCADE, relation_name="person")
-#     amount = models.FloatField()
-#     due_date = models.DateTimeField(auto_now=True)
-#     budget = models.CharField(max_length=20)
+class Budget(models.Model):
+     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="person")
+     amount = models.FloatField()
+     due_date = models.DateTimeField(auto_now=True)
+     budget = models.CharField(max_length=20)
 
 # class Transaction(models.Model):
 #     transaction_id = models.CharField()

@@ -66,3 +66,21 @@ def callback_view(request):
         return Response(status=200)
     return Response(status=201)
      
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def budget_list(request):
+    user = request.user
+    if user.is_authenticated:
+        budgets = Budget.objects.filter(user_id=user)
+
+        budget_data = []
+        for budget in budgets:           
+            budget_data.append({
+                "budget": budget.budget,
+                "amount": budget.amount,
+                "due_date": budget.due_date.strftime("%Y-%m-%d %H:%M:%S")
+            })
+        return Response(budget_data, status=200)
+    else:
+        return Response({"message": "Unauthorized"}, status = 401)
