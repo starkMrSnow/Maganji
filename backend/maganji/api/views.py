@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.utils import IntegrityError
 from django.views.decorators.csrf import csrf_exempt
-from .utils import *
+from .mpesa import *
 from .models import *
 # Create your views here.
 
@@ -20,7 +20,7 @@ def login_view(request):
         )
         if user is not None:
             login(request, user)
-            stk_push()
+            # stk_push()
             return Response({"message":"Login successful"}, status=200)
         elif user is None:
             return Response({"message":"Invalid password/username"}, status=401)
@@ -35,9 +35,9 @@ def signup_view(request):
             print(request.data)
             try:
                 user = User.objects.create(
+                    username = request.data.get("phone_no"),
                     first_name=request.data.get("firstName").strip(),
                     last_name=request.data.get("lastName").strip(),
-                    phone_no=request.data.get("phoneNo"),
                     national_id=request.data.get("nationalID"),
                     email = request.data.get("email")
                 )
