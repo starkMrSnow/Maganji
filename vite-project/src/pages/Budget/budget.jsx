@@ -13,9 +13,41 @@ import { IoIosSettings } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
 import { CiBellOn } from "react-icons/ci";
+import { baseUrl } from '../../utils';
+import { useState, useEffect } from 'react';
+
 
 export default function Layout() {
   const navigate = useNavigate(); // For navigation
+
+  const [budgets, setBudgets] = useState([])
+
+  const budgetList = async () => {
+    try{
+      const response = await fetch(`${baseUrl}/budget`,
+        {method: "GET",
+          credentials: "include",
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Budget data:", data);
+        setBudgets(data);
+      }
+      else {
+        console.error("Failed to get the budgets");
+      }
+      }
+    catch (error) {
+        console.error ("Error fetching budgets: ", error);
+      }
+    };
+
+useEffect( ()=> {
+  budgetList();
+}, [])
+ 
 
   return (
     <div className="layout-container">
@@ -79,6 +111,4 @@ export default function Layout() {
         </div>
       </div>
     </div>
-  );
-}
-
+  );}
