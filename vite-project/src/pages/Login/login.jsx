@@ -17,18 +17,35 @@ const [formData, setFormData] = useState({
   
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
+  
     const response = await fetch(`${baseUrl}/login`, {
-      method:'POST',
+      method: 'POST',
       credentials: 'include',
       headers: {
         "Content-Type": "application/json",
-        'X-CSRFToken': getCookie('csrftoken') 
+        'X-CSRFToken': getCookie('csrftoken') // assuming you have a function to get csrf token
       },
       body: JSON.stringify(formData)
-  })
-  console.log(response.json())
-  navigate("/home")
-  }
+    });
+  
+    if (response.ok) {
+      const data = await response.json(); // Extract the JSON data from the response
+      console.log("Login response data:", data);
+  
+      // Set the token into localStorage
+      localStorage.setItem("token", data.token);  // Storing the token
+  
+      // Optionally, you can store user info if needed:
+      localStorage.setItem("user", JSON.stringify(data.user));  // If you want to store user data
+  
+      // Navigate to another page or update state as needed
+      navigate("/home")
+    } else {
+      const errorData = await response.json();
+      console.error("Login failed:", errorData);
+    }
+  };
+  
   
   const handleSignUpClick = () => {
     navigate('/signup');  // Redirects to the Sign-Up page

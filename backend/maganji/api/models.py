@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models 
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
@@ -28,7 +28,7 @@ class Budget(models.Model):
 #     type = models.enums()
 
 class Goal(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="person")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals")
     amount = models.FloatField()
     maturity_date = models.DateTimeField()
     status = models.BooleanField(default=False)
