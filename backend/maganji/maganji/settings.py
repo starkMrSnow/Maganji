@@ -108,9 +108,9 @@ DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'maganji_db',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'USER': 'stan',
+        'PASSWORD': 'stan',
+        'HOST': '172.28.64.1',
         'PORT': '3306',
     }
 }

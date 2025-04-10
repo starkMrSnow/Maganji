@@ -1,4 +1,4 @@
-import {React,useState} from 'react';
+import {React,useState, useEffect} from 'react';
 import { Outlet } from 'react-router-dom'; // Outlet is used to render dynamic content
 import '../Layout/layout.css';
 import './budget.css';
@@ -13,6 +13,9 @@ import { IoIosSettings } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
 import { CiBellOn } from "react-icons/ci";
+import { baseUrl } from '../../utils';
+
+
 
 export default function Layout() {
   const navigate = useNavigate(); // For navigation
@@ -25,14 +28,71 @@ export default function Layout() {
     amount : "",
     dueDate : "",
   })
-  const handleBudgetSubmit= async(event) => {
-    const status = await handleBudgetSubmit(event, formData, 'signup');
-  }
+
+  const handleBudgetSubmit = async (event) => {
+    event.preventDefault();
+    console.log("token in budget send : ", localStorage.getItem("token"));
+    
+    try {
+      
+      const response = await fetch(`${baseUrl}/budget`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        console.log("Budget created");
+        budgetList(); // refresh list
+        setShowForm(false); // hide form after submission
+      } else {
+        const err = await response.json();
+        console.error("Failed to create budget:", err);
+      }
+    } catch (error) {
+      console.error("Error submitting budget:", error);
+    }
+  };
+  
     
   const inputChange = (event) => {
     
     setFormData({ ...formData, [event.target.name]: event.target.value });
   }
+
+  const [budgets, setBudgets] = useState([])
+
+  const budgetList = async () => {
+    try{
+      const response = await fetch(`${baseUrl}/budget`,
+        {method: "GET",
+          credentials: "include",
+          headers: {"Authorization": `Token ${localStorage.getItem("token")}`}
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Budget data:", data);
+        setBudgets(data);
+      }
+      else {
+        console.error("Failed to get the budgets");
+      }
+      }
+    catch (error) {
+        console.error ("Error fetching budgets: ", error);
+      }
+    };
+
+useEffect( ()=> {
+  budgetList();
+}, [])
+ 
 
   return (
     <div className="layout-container">
@@ -72,27 +132,21 @@ export default function Layout() {
         </div>
       
         <div className="budget-page-content">
-            <div className='budget-rect-bar'>
-            <p className='budget-one'>Rent</p>
-            <p className='Firstamount'>- Ksh.1,200</p>
-            </div>
-            <div className='budget-rect-bar'>
-            <p className='budget-one'>Water</p>
-            <p className='Firstamount'>- Ksh.1,200</p>
-            </div>
-            <div className='budget-rect-bar'>
-            <p className='budget-one'>Wifi</p>
-            <p className='Firstamount'>- Ksh.1,200</p>
-            </div>
-            <div className='budget-rect-bar'>
-            <p className='budget-one'>Electiricty</p>
-            <p className='Firstamount'>- Ksh.1,200</p>
-            </div>
-            
-        </div>
+  {budgets.length === 0 ? (
+    <h4>No budgets available</h4>
+  ) : (
+    budgets.map((item, index) => (
+      <div className='budget-rect-bar' key={index}>
+        <p className='budget-one'>{item.budget}</p>
+        <p className='Firstamount'>- Ksh.{item.amount}</p>
+        <p className='duedate'>{item.due_date}</p>
+      </div>
+    ))
+  )}
+</div>
         <br/>
         <button className='add 'onClick={ handleButtonClick}> Add Budget</button>
-        {/* Conditionally render the form if showForm is true */}
+      
         {showForm && (
 
           <div className="body">
@@ -118,6 +172,4 @@ export default function Layout() {
                   )}
       </div>
     </div>
-  );
-}
-
+  );}
