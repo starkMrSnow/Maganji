@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useState} from 'react';
 import { Outlet } from 'react-router-dom'; // Outlet is used to render dynamic content
 import '../Layout/layout.css';
 import './budget.css';
@@ -19,6 +19,23 @@ import { useState, useEffect } from 'react';
 
 export default function Layout() {
   const navigate = useNavigate(); // For navigation
+  const [showForm, setShowForm] = useState(false);
+  const handleButtonClick = () => {
+    setShowForm(!showForm); 
+  };
+  const [formData, setFormData] = useState({
+    budgetName : "",
+    amount : "",
+    dueDate : "",
+  })
+  const handleBudgetSubmit= async(event) => {
+    const status = await handleBudgetSubmit(event, formData, 'signup');
+  }
+    
+  const inputChange = (event) => {
+    
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  }
 
   const [budgets, setBudgets] = useState([])
 
@@ -73,23 +90,19 @@ useEffect( ()=> {
           <button onClick={() => navigate("/profile")}>
             <CgProfile className="icon" /> Profile
           </button>
-          {/* <button onClick={() => navigate("/settings")}>
-            <IoIosSettings className="icon" /> Settings
-          </button> */}
-        </div>
+        
+          
+        </div>  
       </div>
-
-      {/* Main Content Area */}
       <div className="main-content">
-        {/* Navbar */}
+      
         <div className="navbar">
         <h2>My Budget</h2>
           <CiSearch className="search-icon" />
           <input type="text" placeholder="Search..." className="search-bar" />
           <CiBellOn className='bell' />
         </div>
-        
-        {/* Dynamic Content Goes Here */}
+      
         <div className="budget-page-content">
             <div className='budget-rect-bar'>
             <p className='budget-one'>Rent</p>
@@ -109,6 +122,32 @@ useEffect( ()=> {
             </div>
             
         </div>
+        <br/>
+        <button className='add 'onClick={ handleButtonClick}> Add Budget</button>
+        {/* Conditionally render the form if showForm is true */}
+        {showForm && (
+
+          <div className="body">
+          <form onSubmit={handleBudgetSubmit} method="post" enctype="multipart/form-data">
+            <div class="form-container">
+    
+            <label for ="Budget Name">Budget Name: </label><br/>
+            <input type="text" name="budgetName" placeholder="Add Budget" required onChange={inputChange}/><br/>
+          
+
+           <label for ="Amount">Amount: </label><br/>
+           <input type="integers" name="amount" minlength="1"required onChange={inputChange}/><br/>
+
+
+           <label for ="Due Date">Due Date: </label><br/>
+           <input type="date" name="dueDate" onChange={inputChange}/><br/>
+
+         
+          <button>Create Budget</button>
+          </div>
+        </form>
+        </div>
+                  )}
       </div>
     </div>
   );}
