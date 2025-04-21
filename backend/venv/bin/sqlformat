@@ -1,4 +1,4 @@
-#!/home/cecillwala/Maganji/backend/venv/bin/python3
+#!/home/cecillwala/code/maganji/Maganji-test/backend/venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
