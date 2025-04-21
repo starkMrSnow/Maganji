@@ -6,5 +6,8 @@ urlpatterns = [
     path("login", login_view, name="login"),
     path("callback", callback_view, name="callback"),
     path("initiate_payment", initiate_payment, name="initiate_payment"),
-    path("budget", budget_list , name= "budget")
+    path("budget", budget_list , name= "budget"),
+    path("goal", goal_list, name = "goal"),
+    path("transaction", transaction_list, name = "transaction")
+
 ]

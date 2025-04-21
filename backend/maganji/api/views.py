@@ -8,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import TokenAuthentication
 from .mpesa import *
 from .models import *
+from django.utils import timezone
+from datetime import datetime
 # Create your views here.
 
 from rest_framework.authtoken.models import Token
@@ -110,7 +112,90 @@ def budget_list(request):
                 user_id=user,
                 budget=data.get("budgetName"),
                 amount=float(data.get("amount")),
-                due_date=data.get("dueDate")  # Make sure format is right
+                due_date=data.get("dueDate") 
             )
             return Response({"message": "Budget created successfully"}, status=201)
    
+@api_view(['GET', 'POST'])
+@permission_classes([permissions.AllowAny])
+def goal_list(request):
+    # Hardcoded user for testing (replace with actual auth logic in production)
+    user = User.objects.get(id=1)
+
+    if request.method == 'GET':
+        goals = Goal.objects.filter(user_id=user)
+        goal_data = [
+            {
+                'goal': goal.goal,
+                'amount': goal.amount,
+                'maturity_date': goal.maturity_date.strftime("%Y-%m-%d"),
+                'status': goal.status
+            }
+            for goal in goals
+        ]
+        return Response(goal_data, status=200)
+
+    elif request.method == 'POST':
+        data = request.data
+        print("Received data:", data)
+        print("User:", user)
+
+        try:
+            # Convert status to boolean
+            raw_status = data.get("status", "false")
+            if isinstance(raw_status, str):
+                status = raw_status.lower() in ["true", "active", "1"]
+            else:
+                status = bool(raw_status)
+
+            # Convert maturity_date to timezone-aware datetime
+            maturity_date_str = data.get("maturity_date")
+            maturity_date = datetime.strptime(maturity_date_str, "%Y-%m-%d")
+            maturity_date = timezone.make_aware(maturity_date)
+
+            # Create the Goal
+            Goal.objects.create(
+                user_id=user,
+                goal=data.get("goal"),
+                amount=float(data.get("amount")),
+                maturity_date=maturity_date,
+                status=status
+            )
+            return Response({"message": "Goal created successfully."}, status=201)
+
+        except Exception as e:
+            print("Error creating goal:", str(e))  # Log the error in terminal
+            return Response({"error": str(e)}, status=400)
+        
+@api_view(['GET', 'POST'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def transaction_list(request):
+    user = request.user
+    print("Authenticated user:", user)
+    print("Is authenticated:", user.is_authenticated)
+    if request.method == "GET":
+         transactions = Transaction.objects.filter(user_id=user).order_by("-date")
+         transaction_data = [
+              {
+                   "type": t.type,
+                   "amount": t.amount,
+                   "description": t.budget.name if t.budget else "No budget",
+                   "date": t.date.strftime("%Y-%m-%d %H:%M:%S")
+              }
+              for t in transactions
+         ]
+         return Response(transaction_data, status=200)
+    elif request.method == "POST":
+         data = request.data
+         try:
+            Transaction.objects.create(
+                user_id=user,
+                amount=float(data.get("amount")),
+                type=data.get("type"),
+                budget_id=data.get("budget"),  # assuming budget is passed as ID
+                date=timezone.now()
+              )
+            return Response({"message": "Transaction recorded successfully"}, status=201)
+         except Exception as e:
+              return Response({"error": str(e)}, status=400)

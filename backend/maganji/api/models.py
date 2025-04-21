@@ -19,13 +19,20 @@ class Budget(models.Model):
      due_date = models.DateTimeField(auto_now=True)
      budget = models.CharField(max_length=20)
 
-# class Transaction(models.Model):
-#     transaction_id = models.CharField()
-#     budget = models.ForeignKey(Budget, on_delete=models.CASCADE)
-#     user_id = models.ForeignKey(User, on_delete=models.CASCADE, relation_name="person")
-#     amount = models.FloatField()
-#     date = models.DateTimeField()
-#     type = models.enums()
+class Transaction(models.Model):
+     class TransactionType(models.TextChoices):
+          DEPOSIT = "deposit", "Deposit"
+          WITHDRAWAL = "withdrwal", "Withdrawal"
+
+     transaction_id = models.CharField(max_length= 100, unique=True)
+     budget = models.ForeignKey(Budget, on_delete=models.CASCADE)
+     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="transaction")
+     amount = models.FloatField()
+     date = models.DateTimeField( auto_now_add=True)
+     type = models.CharField(max_length=20, choices = TransactionType.choices)
+
+     def __str__(self):
+          return f"{self.transaction_id} - {self.type} - {self.amount}"
 
 class Goal(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="goals")
