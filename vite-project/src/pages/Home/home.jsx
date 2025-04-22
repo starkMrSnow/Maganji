@@ -80,7 +80,20 @@ export default function Layout() {
     
     setFormData({ ...formData, [event.target.name]: event.target.value });
   }
-  
+
+  const HomeDetails = async () => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${baseUrl}/home`,{
+      method: 'GET',
+      headers: {
+        'Authorization' : `Token ${token}`,
+        'Content-Type' : 'application/json'
+      }
+    });
+  }
+
+  HomeDetails();
+
   const initiateDeposit = async (event) => {
       event.preventDefault();
       const response = await fetch(`${baseUrl}/initiate_payment`, {

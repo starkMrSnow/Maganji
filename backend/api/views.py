@@ -16,6 +16,14 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from django.contrib.auth import authenticate, login, logout
 
+
+@api_view(['GET', 'POST'])
+@permission_classes([permissions.AllowAny])
+def home_view(request):
+    print(request.user.first_name)
+    return Response({"balance":""}, status=200)
+
+
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
 def login_view(request):
@@ -27,18 +35,11 @@ def login_view(request):
         )
         if user is not None:
             login(request, user)
-
-            # 🔑 Get or create token
             token, created = Token.objects.get_or_create(user=user)
             print("data: ", token.key)
             return Response({
                 "message": "Login successful",
-                "token": token.key,  # send token string
-                "user": {
-                    "id": user.id,
-                    "username": user.username,
-                    "email": user.email,
-                }
+                "token": token.key
             }, status=200)
             
         else:
@@ -54,28 +55,35 @@ def login_view(request):
 def signup_view(request):
     if request.method == "POST":  
             print(request.data)
-            try:
-                user = User.objects.create(
-                    username = request.data.get("phone_no"),
-                    first_name=request.data.get("firstName").strip(),
-                    last_name=request.data.get("lastName").strip(),
-                    national_id=request.data.get("nationalID"),
-                    email = request.data.get("email")
-                )
-                user.set_password(f'{request.data.get("password")}')
-                user.save()
-                login(request, user)
-                return Response({"message":"Registration successful"}, status=200)
-            except IntegrityError:
-                return Response({"message":"User already exists"}, status=401)
+            # try:
+            user = User.objects.create(
+                username = request.data.get("phoneNo"),
+                first_name=request.data.get("firstName").strip(),
+                last_name=request.data.get("lastName").strip(),
+                national_id=request.data.get("nationalID"),
+                email = request.data.get("email")
+            )
+            user.set_password(f'{request.data.get("password")}')
+            user.save()
+            token, created = Token.objects.get_or_create(user=user)
+            login(request, user)
+            return Response({
+                 "message":"Registration successful",
+                 "token": token.key
+                 }, status=200)
+            # except IntegrityError:
+            #     return Response({"message":"User already exists"}, status=401)
     return Response({"message":"signup"}, status=200)
 
 
 @api_view(['GET','POST'])
-@permission_classes([permissions.IsAuthenticated])
+@permission_classes([permissions.AllowAny])
 def initiate_payment(request):
-    print(request.data)
-    # stk_push()
+    if request.method == "POST":
+        print(request.data)
+        # try_stk()
+        stk_push(request.data.get("amount"))
+        return Response(status=200)
     return Response(status=200)
 
 
