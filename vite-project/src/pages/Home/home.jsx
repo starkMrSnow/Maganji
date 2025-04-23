@@ -72,7 +72,8 @@ export default function Layout() {
 
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    amount : ""
+    amount : "",
+    phoneNo: ""
   })
   
   const inputChange = (event) => {
@@ -96,7 +97,7 @@ export default function Layout() {
 
   const initiateDeposit = async (event) => {
       event.preventDefault();
-      const response = await fetch(`${baseUrl}/initiate_payment`, {
+      const response = await fetch(`${baseUrl}/deposit`, {
         method:'POST',
         credentials: 'include',
         headers: {
@@ -168,7 +169,13 @@ export default function Layout() {
                             className="search-bar" 
                             placeholder="Amount"
                           />
-                        
+                          <input 
+                            type="text" 
+                            name="phoneNo"
+                            onChange={inputChange}
+                            className="search-bar" 
+                            placeholder="Phone Number"
+                          />
                         <div className="flex justify-end mt-4">
                           <button 
                             onClick={() => setShowForm(false)} 

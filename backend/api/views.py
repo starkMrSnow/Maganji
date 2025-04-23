@@ -78,11 +78,22 @@ def signup_view(request):
 
 @api_view(['GET','POST'])
 @permission_classes([permissions.AllowAny])
-def initiate_payment(request):
+def initiate_deposit(request):
     if request.method == "POST":
         print(request.data)
         # try_stk()
-        stk_push(request.data.get("amount"))
+        stk_push(request.data.get("amount"), request.data.get("phoneNo"))
+        return Response(status=200)
+    return Response(status=200)
+
+
+@api_view(['GET','POST'])
+@permission_classes([permissions.AllowAny])
+def initiate_withdraw(request):
+    if request.method == "POST":
+        print(request.data)
+        # # try_stk()
+        # stk_push(request.data.get("amount"))
         return Response(status=200)
     return Response(status=200)
 
