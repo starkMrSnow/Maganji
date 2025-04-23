@@ -16,3 +16,18 @@ export function getCookie(name) {
     }
     return cookieValue;
 }
+
+
+export async function submitDetails(data, route){
+    const response = await fetch(`${baseUrl}/${route}`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+          'X-CSRFToken': getCookie('csrftoken') // assuming you have a function to get csrf token
+        },
+        body: JSON.stringify(data)
+      });
+    const status = await response.json();
+    return status;
+}

@@ -20,10 +20,8 @@ const [formData, setFormData] = useState({
   
     const response = await fetch(`${baseUrl}/login`, {
       method: 'POST',
-      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
-        'X-CSRFToken': getCookie('csrftoken') // assuming you have a function to get csrf token
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(formData)
     });
@@ -33,10 +31,7 @@ const [formData, setFormData] = useState({
       console.log("Login response data:", data);
   
       // Set the token into localStorage
-      localStorage.setItem("token", data.token);  // Storing the token
-  
-      // Optionally, you can store user info if needed:
-      localStorage.setItem("user", JSON.stringify(data.user));  // If you want to store user data
+      localStorage.setItem("token", data.token);  // Storing the token 
   
       // Navigate to another page or update state as needed
       navigate("/home")
@@ -70,7 +65,7 @@ const [formData, setFormData] = useState({
             onChange={inputChange}
             placeholder="Phone Number"
             className="login-input"
-            name="phone_no"
+            name="phoneNo"
           />
           <input
             required
