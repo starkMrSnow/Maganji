@@ -68,46 +68,48 @@ const data = [
   },
 ];
 export default function Layout() {
-  const navigate = useNavigate(); // For navigation
+const navigate = useNavigate(); // For navigation
 
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    amount : "",
-    phoneNo: ""
-  })
-  
-  const inputChange = (event) => {
-    console.log(`Event: ${event.target.value}`);
-    
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  }
+const [showForm, setShowForm] = useState(false);
+const [selectedFile, setSelectedFile] = useState(null);
+const [password, setPassword] = useState("");
 
-  const HomeDetails = async () => {
-    const token = localStorage.getItem("token");
-    const response = await fetch(`${baseUrl}/home`,{
-      method: 'GET',
-      headers: {
-        'Authorization' : `Token ${token}`,
-        'Content-Type' : 'application/json'
-      }
-    });
-  }
+const FileChange = (event) => {
+  setSelectedFile(event.target.files[0]); // Capture actual file
+};
+
+const PasswordChange = (event) => {
+  setPassword(event.target.value);
+};
+
+const formData = new FormData();
+formData.append("mpesaFile", selectedFile);
+formData.append("password", password);
+
+const token = localStorage.getItem("token");
+const HomeDetails = async () => {
+  const response = await fetch(`${baseUrl}/home`,{
+    method: 'GET',
+    headers: {
+      'Authorization' : `Token ${token}`,
+      'Content-Type' : 'application/json'
+    }
+  });
+}
 
   HomeDetails();
 
   const initiateDeposit = async (event) => {
       event.preventDefault();
-      const response = await fetch(`${baseUrl}/deposit`, {
-        method:'POST',
-        credentials: 'include',
+      const response = await fetch(`${baseUrl}/deposit`,{
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          'X-CSRFToken': getCookie('csrftoken') 
+          'Authorization' : `Token ${token}`
         },
-        body: JSON.stringify(formData)
-      })
-      console.log(formData);
-
+        body:formData
+      });
+      const data = await response.json();
+      console.log(data)
     }
 
   return (
@@ -160,22 +162,25 @@ export default function Layout() {
                    <button className='deposit-button' onClick={() => setShowForm(true)}>DEPOSIT</button>
                    {showForm && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                      <form className="bg-white p-6 rounded-lg shadow-lg w-96" onSubmit={initiateDeposit} method="post">
-                        <label>Amount:</label>
-                          <input 
-                            type="text" 
-                            name="amount"
-                            onChange={inputChange}
-                            className="search-bar" 
-                            placeholder="Amount"
-                          />
-                          <input 
-                            type="text" 
-                            name="phoneNo"
-                            onChange={inputChange}
-                            className="search-bar" 
-                            placeholder="Phone Number"
-                          />
+                      <form className="bg-white p-6 rounded-lg shadow-lg w-96" onSubmit={initiateDeposit} method="post" enctype="multipart/form-data">
+                        <label>MPESA file:</label>
+                        <input 
+                          type="file" 
+                          name="mpesaFile"
+                          accept="application/pdf"
+                          required
+                          onChange={FileChange}
+                          className="search-bar" 
+                          placeholder="M-PESA file"
+                        />
+                        <label>PDF Password:</label>
+                        <input 
+                          type="text" 
+                          name="password"
+                          onChange={PasswordChange}
+                          className="search-bar" 
+                          placeholder="PDF Password"
+                        />
                         <div className="flex justify-end mt-4">
                           <button 
                             onClick={() => setShowForm(false)} 
