@@ -20,7 +20,7 @@ import { IoCartSharp } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
 import { FaLightbulb } from "react-icons/fa";
 import { FaCarSide } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { baseUrl, getCookie } from "../../utils";
 
 const data = [
@@ -87,17 +87,44 @@ formData.append("mpesaFile", selectedFile);
 formData.append("password", password);
 
 const token = localStorage.getItem("token");
-const HomeDetails = async () => {
-  const response = await fetch(`${baseUrl}/home`,{
-    method: 'GET',
-    headers: {
-      'Authorization' : `Token ${token}`,
-      'Content-Type' : 'application/json'
-    }
-  });
-}
 
-  HomeDetails();
+const [transactions, setTransactions] = useState([]);
+const [activities, setActivities] = useState([]);
+const [upcoming, setUpcoming] = useState([]);
+const [analyticsData, setAnalyticsData] = useState([]);
+
+
+const [wallet, setWallet] = useState({
+  wallet_balance: 0,
+  budget_amount: 0,
+  budget_balance: 0
+});
+
+const HomeDetails = async () => {
+  
+  try{
+    const response = await fetch(`${baseUrl}/home`,{
+      method: 'GET',
+      headers: {
+        'Authorization' : `Token ${token}`,
+        'Content-Type' : 'application/json'
+      }
+    });
+    const data = await response.json();
+    setWallet({
+      wallet_balance: data.wallet_balance,
+      budget_amount: data.budget_amount,
+      budget_balance: data.budget_balance
+    });
+  } catch (error){
+    console.error("Failed to fecth home details", error)
+  }
+};
+
+  //  This runs HomeDetails() ONLY when the component first mounts, Try to remove this if code crashes
+  useEffect(() => {
+    HomeDetails();
+  }, []);
 
   const initiateDeposit = async (event) => {
       event.preventDefault();
@@ -158,7 +185,7 @@ const HomeDetails = async () => {
                 <div className='left'>
                   <div className='wallet'>
                    <h4> Wallet Balance:</h4> 
-                   <p>Ksh.12,798</p>
+                   <p>Ksh.{wallet.wallet_balance.toLocaleString()}</p>
                    <button className='deposit-button' onClick={() => setShowForm(true)}>DEPOSIT</button>
                    {showForm && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -201,11 +228,11 @@ const HomeDetails = async () => {
                    <div className='cards'>
                    <div className="budget-amount">
                    <p> Budget amount</p>
-                   <p>Ksh.43,000</p>
+                   <p>Ksh.{wallet.budget_amount.toLocaleString()}</p>
                     </div>     
                        <div className='budget-balance'>
                           <p>Budget balance</p>
-                          <p>Ksh.12,000</p>
+                          <p>Ksh.{wallet.budget_balance.toLocaleString()}</p>
                        </div>
                        <button className='withdraw-button'>WITHDRAW</button>
                    </div>                 
@@ -213,37 +240,19 @@ const HomeDetails = async () => {
                   <div className="nested-grid">
       <div className="nested-left">
         <p>Recent Transactions</p>
-            <div className='rect-bar'>
-              <BsFire className='gas'/>
-              <p className='bar-one'>Gas</p>
-              <p className='amount-one'>Ksh.1,200</p>
-              </div>
-            <div className='rect-bar'>
-              <RiNetflixFill className='netflix'/>
-              <p className='bar-two'>Netflix</p>
-              <p className='amount-two'>Ksh.2,000</p>
-            </div>
-            <div className='rect-bar'>
-            <IoCartSharp className='cart' />
-            <p className='bar-three'>Shopping</p>
-              <p className='amount-three'>Ksh.2,000</p>
-            </div>
+        {transactions.map((tx, index) => (
+  <div className='rect-bar' key={index}>
+    <BsFire className='gas'/>
+    <p className='bar-one'>{tx.name}</p>
+    <p className='amount-one'>Ksh.{tx.amount.toLocaleString()}</p>
+  </div>
+))}
       </div>
       <div className="nested-right">
         <p>Activity</p>
-       <li>
-        <ul>
-           You spent more than 45% of 
-             your salary last month on
-                partying
-        </ul>
-       </li>
-       <li>
-       <ul>
-       You are saving last month incredibly
-       increased by a whoping 35%
-        </ul>
-       </li>
+        {activities.map((activity, index) => (
+  <li key={index}><ul>{activity}</ul></li>
+))}
       </div>
 
     </div>

@@ -22,7 +22,7 @@ class Budget(models.Model):
 # class Transaction(models.Model):
 #     transaction_id = models.CharField()
 #     budget = models.ForeignKey(Budget, on_delete=models.CASCADE)
-#     user_id = models.ForeignKey(User, on_delete=models.CASCADE, relation_name="person")
+#     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="person")
 #     amount = models.FloatField()
 #     date = models.DateTimeField()
 #     type = models.enums()
@@ -33,3 +33,4 @@ class Goal(models.Model):
     maturity_date = models.DateTimeField()
     status = models.BooleanField(default=False)
     goal = models.CharField(max_length=50)
+
